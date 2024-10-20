@@ -1,0 +1,3 @@
+使用 https://docs.antora.org/antora/latest/[Antora] 生成的blog
+
+为方便，该项目将playbook和content source合并为一个项目

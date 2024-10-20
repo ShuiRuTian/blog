@@ -1,0 +1,29 @@
+1. Document fragment真的有效吗？
+由于天然的复杂性，并行的ui框架现在仍不存在。浏览器也是如此，如browser的event loop所述，在JS执行的时候，browser没有办法执行渲染（然而重新进行布局计算是可能的，如果需要的话）。
+
+同时，许多人声称document fragment有性能优势，这令我尤为不解，因为执行DOM操作的时候，浏览器没办法渲染。尽管这样隐式地避免了布局计算（也就是说，避免了reflow），除此以外，优化在哪了呢？
+
+[source,js]
+----
+const list = document.querySelector("#list");
+const fruits = ["Apple", "Orange", "Banana", "Melon"];
+
+// fragment
+const fragment = new DocumentFragment();
+
+fruits.forEach((fruit) => {
+const li = document.createElement("li");
+li.textContent = fruit;
+fragment.appendChild(li);
+});
+
+list.appendChild(fragment);
+
+// one by one
+fruits.forEach((fruit) => {
+const li = document.createElement("li");
+li.textContent = fruit;
+list.appendChild(li);
+});
+
+----
